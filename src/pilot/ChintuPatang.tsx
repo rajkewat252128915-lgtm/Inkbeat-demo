@@ -161,7 +161,6 @@ const SETUPS = [
 export const ChintuPatang: React.FC<{ sub?: boolean }> = ({ sub = false }) => {
   const ready = useFonts();
   const g = useCurrentFrame();
-  if (!ready) return <AbsoluteFill style={{ background: "#1a1220" }} />;
   const { n, fp } = sub ? subFrame(g) : { n: g, fp: g };
   const t = fp / 30;
   const setupIdx = t < 6 ? 0 : t < 11 ? 1 : 2;
@@ -193,6 +192,13 @@ export const ChintuPatang: React.FC<{ sub?: boolean }> = ({ sub = false }) => {
     () => holdInFront({ position: KID_POS, yaw: yawQ, height: KID.height, build: KID.build, side: "R", up: setupIdx === 2 ? 0.5 : 0.42, forward: 0.2 }),
     [setupIdx, yawQ],
   );
+  // FIX (2026-11-18, GitHub Actions run #1 failed with React error #310):
+  // the early `if (!ready) return ...` used to sit before this useMemo, so on
+  // the first render (fonts not ready) the hook never ran, and on the next
+  // render it did — React throws #310 "rendered more hooks than during the
+  // previous render". All hooks must run on every render, so the early return
+  // now sits AFTER every hook in this component.
+  if (!ready) return <AbsoluteFill style={{ background: "#1a1220" }} />;
   const pose: Pose = {
     ...hold.pose,
     armL: [10, 10],
