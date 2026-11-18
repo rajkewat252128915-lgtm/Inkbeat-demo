@@ -77,7 +77,10 @@ const Kite: React.FC<{ t: number }> = ({ t }) => {
     <group position={k}>
       <M g={boxG(0.55, 0.75, 0.02)} c="#d84a2a" tex="fabric" r={[0, 0, Math.PI / 4]} />
       <M g={boxG(0.4, 0.06, 0.02)} c="#f4ead6" r={[0, 0, Math.PI / 4]} p={[0, 0.1, 0.012]} />
-      <Label text="PATANG" p={[0, -0.02, 0.03]} w={0.5} h={0.16} fg="#ffffff" bg="none" font={0.62} />
+      {/* FIX (2026-11-18, stills check): the PATANG label sat at y=-0.02, right where
+          the cream spine bar (centred y=0.1, diagonal) crosses — in the S03 still the
+          bar hid the "A" and the tag read "P-TANG". Moved down to y=-0.2, clear of the bar. */}
+      <Label text="PATANG" p={[0, -0.2, 0.03]} w={0.5} h={0.16} fg="#ffffff" bg="none" font={0.62} />
       {[0, 1, 2].map((i) => (
         <M key={i} g={boxG(0.09, 0.09, 0.01)} c={i % 2 ? "#3c5280" : "#d6a137"} r={[0, 0, Math.PI / 4]} p={[0.03 * (i % 2 ? 1 : -1), -0.62 - i * 0.16, 0]} />
       ))}
