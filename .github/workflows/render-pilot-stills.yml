@@ -1,0 +1,38 @@
+# Render the 3 pilot stills on GitHub Actions — no laptop needed.
+# Run it from the GitHub app on a phone: Actions tab -> Render pilot stills -> Run workflow.
+# GitHub-hosted runners have no GPU (4 vCPU / 16 GB RAM), so this uses --gl=swangle,
+# which Remotion recommends for a machine with no GPU. Rendering might be slow.
+# In Remotion 4.0, --gl=angle fails on GitHub Actions runners (no GPU).
+# First run this stills job. Only if all 3 stills look right, run render-pilot-video.yml.
+name: Render pilot stills
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stills:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: Render pilot stills (one per setup)
+        run: |
+          mkdir -p out
+          npx remotion still src/index.ts ChintuPatang out/pilot-s01.jpg --frame=30 --scale=0.5 --gl=swangle --timeout=240000
+          npx remotion still src/index.ts ChintuPatang out/pilot-s02.jpg --frame=240 --scale=0.5 --gl=swangle --timeout=240000
+          npx remotion still src/index.ts ChintuPatang out/pilot-s03.jpg --frame=390 --scale=0.5 --gl=swangle --timeout=240000
+          ls -lh out/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pilot-stills
+          path: out/pilot-s*.jpg
+          if-no-files-found: error
+          
