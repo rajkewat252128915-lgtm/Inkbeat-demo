@@ -1,0 +1,38 @@
+# Render the full 15 s pilot video with motion blur on GitHub Actions.
+# Run this ONLY after the stills job (render-pilot-stills.yml) looks right.
+# This renders 1800 frames at 120 fps in software GL (no GPU on the runner),
+# so it is slow — expect a long run, possibly over an hour. Do not run it
+# twice at once. If it times out, split it into chunks or use a GPU machine.
+name: Render pilot video
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: npm ci
+      - name: Render motion-blur sub-frames (muted, concurrency 3)
+        run: |
+          mkdir -p out
+          npx remotion render src/index.ts ChintuPatangSub out/pilot-sub.mp4 --gl=swangle --timeout=240000 --concurrency=3 --codec=h264 --crf=16 --pixel-format=yuv420p --muted
+      - name: Average sub-frames to 30 fps motion-blur video
+        run: |
+          ffmpeg -i out/pilot-sub.mp4 -vf "tmix=frames=4:weights='1 1 1 1',select='eq(mod(n\,4)\,3)',setpts=N/30/TB" -r 30 -c:v libx264 -crf 16 -pix_fmt yuv420p out/pilot.mp4
+          ls -lh out/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pilot-video
+          path: out/pilot.mp4
+          if-no-files-found: error
