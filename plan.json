@@ -1,0 +1,132 @@
+{
+ "fps": 30,
+ "duration_s": 14.902,
+ "shots": [
+  {
+   "id": "S01",
+   "t": 0.0,
+   "mood": "day",
+   "note": "medium, kid (CAST.kid) 3/4, face at ~38% of the height; kite + wire in frame in first 2 s",
+   "end": 6.0
+  },
+  {
+   "id": "S02",
+   "t": 6.0,
+   "mood": "dusk",
+   "note": "wide from the rooftop down to the gali; laughing neighbours small below, kid low in frame (day -> dusk)",
+   "end": 11.0
+  },
+  {
+   "id": "S03",
+   "t": 11.0,
+   "mood": "golden",
+   "note": "close-up / macro on the kite string + kite lifting; golden payoff",
+   "end": 14.902
+  }
+ ],
+ "accent_words": [],
+ "tags": [
+  {
+   "text": "PATANG",
+   "t": 1.6,
+   "note": "painted on the kite itself, unlit, large, high contrast"
+  }
+ ],
+ "beats": [
+  {
+   "t": 0.0,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "aaj"
+  },
+  {
+   "t": 1.4,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "patang"
+  },
+  {
+   "t": 2.2,
+   "move": "PULL",
+   "dur": 0.66,
+   "word": "mein"
+  },
+  {
+   "t": 3.0,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "bijli"
+  },
+  {
+   "t": 3.8,
+   "move": "ORBIT_L",
+   "dur": 0.7,
+   "word": "taar"
+  },
+  {
+   "t": 4.6,
+   "move": "PULL",
+   "dur": 0.66,
+   "word": "atki"
+  },
+  {
+   "t": 5.8,
+   "move": "PUSH",
+   "dur": 0.9,
+   "word": "neeche"
+  },
+  {
+   "t": 7.152,
+   "move": "PULL",
+   "dur": 0.66,
+   "word": "has"
+  },
+  {
+   "t": 8.166,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "upar"
+  },
+  {
+   "t": 9.518,
+   "move": "ORBIT_R",
+   "dur": 0.7,
+   "word": "soch"
+  },
+  {
+   "t": 10.8,
+   "move": "PUSH",
+   "dur": 0.9,
+   "word": "phir"
+  },
+  {
+   "t": 12.08,
+   "move": "PULL",
+   "dur": 0.66,
+   "word": "khinchi"
+  },
+  {
+   "t": 12.848,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "neeche"
+  },
+  {
+   "t": 13.616,
+   "move": "PUSH",
+   "dur": 0.63,
+   "word": "udd"
+  }
+ ],
+ "stats": {
+  "beats": 14,
+  "beats_per_min": 56.4,
+  "push_pull": "8:4",
+  "hard_cuts": 0,
+  "longest_setup_s": 6.0,
+  "longest_beat_gap_s": 1.4,
+  "sentence_starts_on_beat": "3/3",
+  "words": 41,
+  "timings": "ESTIMATED"
+ }
+}

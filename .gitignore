@@ -1,0 +1,6 @@
+node_modules/
+out/
+build/
+build-chintu/
+*.log
+.DS_Store
